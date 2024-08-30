@@ -8,7 +8,7 @@
   </div>
   <div>
     <div class="row">
-      <form method="POST" action="<?= isset($model['action']) && $model['action'] == "edit" ? "./auction/" . $model['product']['id_barang'] . "/update" : "./auction" ?>" class="col-xl-8 col-md-12 col-12">
+      <form method="POST" enctype="multipart/form-data" action="<?= isset($model['action']) && $model['action'] == "edit" ? "./auction/" . $model['product']['id_barang'] . "/update" : "./auction" ?>" class="col-xl-8 col-md-12 col-12">
         <div class="card mb-5">
           <div class="card-body">
             <div class="row">
@@ -45,6 +45,10 @@
               <div class="mb-4 col-12">
                 <label class="form-label" for="harga_awal">Price <span class="text-danger">*</span> </label>
                 <input type="text" id="harga_awal" name="harga_awal" class="form-control money" placeholder="Enter product price" required="" value="<?= $model['product']['harga_awal'] ?? @$_POST['harga_awal'] ?>" min="0" pattern="[0-9 _,]*" title="Please enter number only">
+              </div>
+              <div class="mb-4 col-12">
+                <label class="form-label" for="auction_images">Auction Images <?php if(isset($model['product']['id_barang'])) echo '(Uploading new images will override the old images)' ?></label>
+                <input type="file" id="auction_images" name="auction_images[]" multiple class="form-control auction_images" accept="image/*" />
               </div>
               <div class="mb-4 col-12">
                 <button type="submit" class="btn btn-primary me-2">Save changes</button>

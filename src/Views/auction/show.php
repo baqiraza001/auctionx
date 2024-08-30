@@ -1,6 +1,7 @@
 <?php
 
 use NataInditama\Auctionx\Models\HistoryLelang;
+use NataInditama\Auctionx\Models\Barang;
 
 $dateNow = new DateTime("now");
 $startDate = new DateTime($model["auction"]["tgl_dibuka"]);
@@ -11,6 +12,8 @@ $price = number_format($price, 2, ",", ".");
 $length = count($model['history']);
 $maxActivity = $length > 3 ? 3 : $length;
 
+$product = new Barang();
+$productImages = $product->get_images($model["auction"]["id_barang"]);
 ?>
 
 <div class="bg-white pt-8 mb-6">
@@ -79,17 +82,24 @@ $maxActivity = $length > 3 ? 3 : $length;
 
 <div class="container">
   <div class="row mb-5">
-    <div class="col-md-12 col-xl-4 col-12">
-      <div>
-        <img class="w-100 car-thumb" data-angle="01" alt="Image" src="https://cdn.imagin.studio/getImage" style="height:218px;display: block;">
-      </div>
+    <div class="col-md-8 col-xl-8">
+        <div class="row">
+          <?php if(count($productImages) > 0){
+            foreach ($productImages as $image) { ?>
+          <div class="col-md-6 mb-3">
+            <div class="card" >
+                <img class="card-img-top" src="<?= SITE_BASE_URL.AUTCTION_IMAGES_PATH.$image['name'] ?>" alt="Card image">
+            </div>
+          </div>
+          <?php } } else {?>
+          <div class="col-md-6 mb-3">
+            <img class="card-img-top" src="https://cdn.imagin.studio/getImage" alt="Card image">
+          </div>
+          <?php }?>
+        </div>
     </div>
-    <div class="col-md-12 col-xl-4 col-12">
-      <div>
-        <img class="w-100 car-thumb" data-angle="05" alt="Image" src="https://cdn.imagin.studio/getImage" style="height:218px;display: block;">
-      </div>
-    </div>
-    <div class="col-md-12 col-xl-4 col-12">
+
+    <div class="col-md-4 col-xl-4">
       <div class="card mb-5 bg-dark">
         <div class="card-body">
           <h4 class="mb-0 text-white">Due Date</h4>

@@ -65,6 +65,7 @@ class HomeController
       }
     } else {
       $auctions = $this->auction->findAllByStatus('dibuka');
+
       View::render("auction/index", [
         "products" => $auctions,
         "auth" => $this->session,

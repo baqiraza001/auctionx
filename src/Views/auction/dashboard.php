@@ -1,3 +1,7 @@
+<?php
+use NataInditama\Auctionx\Models\Barang;
+$product = new Barang();
+?>
 <div class="container pt-6">
   <div class="row">
     <div class="col-lg-12 col-md-12 col-12">
@@ -18,6 +22,7 @@
             <thead class="table-light">
               <tr>
                 <th>Product</th>
+                <th>Image</th>
                 <th>Date</th>
                 <th>Budget</th>
                 <th>Status</th>
@@ -31,6 +36,7 @@
                   $startDate = new DateTime($row['tgl_dibuka']);
                   $dueDate = new DateTime($row['tgl_ditutup']);
                   $price = number_format((int) $row['harga_awal'], 2, ",", ".");
+                  $productImages = $product->get_images($row["id_barang"]);
                   ?>
                   <tr>
                     <td class="align-middle">
@@ -42,6 +48,8 @@
                         </div>
                       </div>
                     </td>
+                  
+                    <td class="align-middle"><img class="img-fluid" src="<?= !empty($productImages[0]['name']) ? SITE_BASE_URL.AUTCTION_IMAGES_PATH.$productImages[0]['name']  : 'https://cdn.imagin.studio/getImage' ?>" alt="Image" width="100" height="100"></td>
                     <td class="align-middle"><?= $startDate->format('d/m/Y') . " - " . $dueDate->format('d/m/y');  ?></td>
                     <td class="align-middle">Rp <?= $price; ?> </td>
                     <td class="align-middle">

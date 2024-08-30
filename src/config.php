@@ -13,5 +13,4 @@ define("DB_NAME", "auctionx");
 // Timezone
 date_default_timezone_set("Asia/Makassar");
 
-
 define("AUTCTION_IMAGES_PATH", 'data/auction_images/');

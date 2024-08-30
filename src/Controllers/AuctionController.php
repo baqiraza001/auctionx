@@ -70,6 +70,10 @@ class AuctionController
       }
 
       $result = $this->product->save($request);
+
+      //upload auction images
+      $this->product->save_images($result->insert_id);
+
       $newAuction = new Lelang();
       $newAuction->id_barang = $result->insert_id;
       $newAuction->tgl_dibuka = $request->tgl;
@@ -149,6 +153,9 @@ class AuctionController
       }
 
       $this->product->updateByBarangId($request);
+
+      //upload auction images
+      $this->product->save_images($barangId);
 
       $newAuction = new Lelang();
       $newAuction->id_barang = $barangId;

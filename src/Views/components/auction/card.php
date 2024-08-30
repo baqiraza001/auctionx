@@ -1,10 +1,13 @@
 <?php
 
 use NataInditama\Auctionx\Models\HistoryLelang;
+use NataInditama\Auctionx\Models\Barang;
 
  foreach ($model['products'] as $key => $row) : ?>
   <?php
   $dueDate = new DateTime($row["tgl_ditutup"]);
+  $product = new Barang();
+  $productImages = $product->get_images($row['id_barang']);
   ?>
   <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-5">
     <div class="card h-100">
@@ -14,7 +17,7 @@ use NataInditama\Auctionx\Models\HistoryLelang;
             <div class="ms-0 mb-3">
               <div class="thumbnail hover-scale-up">
                 <a href="./auction/<?= $row['id_barang']; ?>" style="height: 188px;display: block;">
-                  <img class="car-thumb" src="https://cdn.imagin.studio/getImage" style="width: 100%;" alt="Image">
+                  <img class="img-fluid" src="<?= !empty($productImages[0]['name']) ? SITE_BASE_URL.AUTCTION_IMAGES_PATH.$productImages[0]['name']  : 'https://cdn.imagin.studio/getImage' ?>" alt="Image">
                 </a>
               </div>
               <h4 class="card-title mt-3 mb-1">
