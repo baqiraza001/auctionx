@@ -1,7 +1,7 @@
 <?php
 
 // Site
-define("SITE_NAME", "E-bidz");
+define("SITE_NAME", "E-Bidz");
 define("SITE_BASE_URL", "http://localhost:5000/");
 
 // Database
