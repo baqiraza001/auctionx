@@ -38,6 +38,31 @@ class Lelang extends Database
     return $result->fetch_all(MYSQLI_ASSOC);
   }
 
+  public function findLatestByStatus(string $status): ?array
+  {
+    $currentDateTime = date('Y-m-d H:i:s');
+    
+    $query = "SELECT `id_lelang`, `tb_lelang`.`id_barang`, `tgl_dibuka`, `tgl_ditutup`, `harga_akhir`, `id_user`, `tb_lelang`.`id_petugas`, `status`, `nama_barang`, `harga_awal`, `deskripsi_barang`, `tb_petugas`.`nama_petugas`, `tb_petugas`.`username` 
+    FROM `tb_lelang` 
+    INNER JOIN `tb_barang` ON `tb_lelang`.`id_barang` = `tb_barang`.`id_barang` 
+    INNER JOIN `tb_petugas` ON `tb_lelang`.`id_petugas` = `tb_petugas`.`id_petugas` 
+    WHERE `status` = ? 
+    -- AND `tgl_dibuka` >= ? 
+    GROUP BY `tb_lelang`.`id_barang` 
+    ORDER BY `id_barang` DESC, `tgl_dibuka` DESC 
+    LIMIT 9";
+    
+    $statement = $this->mysqli->prepare($query);
+    // $statement->bind_param("ss", $status, $currentDateTime);
+    $statement->bind_param("s", $status);
+    $statement->execute();
+
+    $result = $statement->get_result();
+    
+    return $result ? $result->fetch_all(MYSQLI_ASSOC) : null;
+  }
+
+
   public function findAllByPetugasId(string $petugasId): ?array
   {
     $query = "SELECT `id_lelang`, `tb_lelang`.`id_barang`, `tgl_dibuka`, `tgl_ditutup`, `harga_akhir`, `id_user`, `tb_lelang`.`id_petugas`, `status`, `nama_barang`, `harga_awal`, `deskripsi_barang`, `tb_petugas`.`nama_petugas`, `tb_petugas`.`username` FROM `tb_lelang` INNER JOIN `tb_barang` ON `tb_lelang`.`id_barang` = `tb_barang`.`id_barang` INNER JOIN `tb_petugas` ON `tb_lelang`.`id_petugas` = `tb_petugas`.`id_petugas` WHERE `tb_lelang`.`id_petugas` = ? ORDER BY `id_lelang` DESC";

@@ -64,7 +64,7 @@ class HomeController
         ]);
       }
     } else {
-      $auctions = $this->auction->findAllByStatus('dibuka');
+      $auctions = $this->auction->findLatestByStatus('dibuka');
 
       View::render("auction/index", [
         "products" => $auctions,

@@ -4,12 +4,16 @@ use NataInditama\Auctionx\Models\Barang;
 
 $product = new Barang();
 ?>
+
+<div class="container-flud">
+  <img src="<?php echo SITE_BASE_URL.'assets/images/home/banner-1.jpg' ?>" class="img-fluid">
+</div>
 <div class="container mt-5 flex-grow-1">
   <?php if (count($model['products']) > 0 && is_array($model['products'][0])) : ?>
   <?php 
   $mainSliderImages = $product->get_images($model['products'][0]['id_barang']);
   ?>
-  <div class="shadow-sm bg-white my-5" style="background-image: url(./assets/images/background/sliderbg.jpg);background-position: center;background-repeat: no-repeat;background-size: cover;">
+  <!-- <div class="shadow-sm bg-white my-5" style="background-image: url(./assets/images/background/sliderbg.jpg);background-position: center;background-repeat: no-repeat;background-size: cover;">
     <div class="row p-6 p-md-3">
       <div class="col-md-5">
         <a href="./auction/<?= $model['products'][0]['id_barang']; ?>" style="display: block;width:100%;max-height: 260px;">
@@ -25,8 +29,8 @@ $product = new Barang();
         </div>
       </div>
     </div>
-  </div>
-  <?php unset($model['products'][0]); ?>
+  </div> -->
+  <?php //unset($model['products'][0]); ?>
 <?php endif; ?>
 <div class="row mt-10">
   <div class="col-lg-12 col-md-12 col-12">
